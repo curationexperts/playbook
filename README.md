@@ -2,7 +2,8 @@
 
 ## Content TK
 
- - Code Quality Tools
+ - Project Ramp-Up
+ - Code Quality
    - Gymnasium
    - Coveralls
    - Rubocop
@@ -10,4 +11,4 @@
  - Patterns & Anti-Patterns
  - Trusted Digital Repository Checklist(?)
  - Developer Style Guide
-
+ - Code Handoff
