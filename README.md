@@ -4,11 +4,13 @@
 
  - Project Ramp-Up
  - Code Quality
-   - Gymnasium
-   - Coveralls
-   - Rubocop
-   - Reek(?)
-   - Code Review
+   - Tools
+     - Gymnasium
+     - Coveralls
+     - Rubocop
+     - Reek(?)
+   - Practices
+     - Code Review
  - Source Control & Release Process
  - Patterns & Anti-Patterns
  - Trusted Digital Repository Checklist(?)
