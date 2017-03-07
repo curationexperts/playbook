@@ -8,6 +8,7 @@
    - Coveralls
    - Rubocop
    - Reek(?)
+ - Source Control & Release Process
  - Patterns & Anti-Patterns
  - Trusted Digital Repository Checklist(?)
  - Developer Style Guide
