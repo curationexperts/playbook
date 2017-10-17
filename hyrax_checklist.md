@@ -7,6 +7,16 @@ These are best practices for setting up a DCE developed and/or hosted instance o
 ## In the code base
 1. Add the random flag to rspec test suite
 1. Set up CI testing with travis
+1. Specify Ruby support
+   1. In `Gemfile`:
+   '''ruby
+   ruby '2.4.2' # or other version specification as required
+   ```
+   1. In `.travis.yml`:
+   ```yaml
+   rvm:
+     - 2.4.2
+   ```
 1. Use sidekiq for background jobs
 1. Mount sidekiq UI and ensure it's limited to users with the admin role:
   1. Add to `config/routes.rb`:
