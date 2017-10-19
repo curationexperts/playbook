@@ -18,7 +18,8 @@ These are best practices for setting up a DCE developed and/or hosted instance o
   end
   ```
 1. Set up honeybadger.io to track exceptions (only in production)
-1. Set up capistrano to deploy, and ensure it creates the default admin set upon deploy
+1. Set up capistrano to deploy, and ensure it creates the default admin set upon deploy. 
+[Example](https://github.com/curationexperts/cypripedium/pull/29/commits/2a13f5c0383536a98502d1cc5371eb91dc6a3f23)
 1. Set up gemnasium to track dependencies
 1. Set the log level down to WARN especially in production. Hyrax is really really verbose and it makes debugging difficult. In `/config/environments/production.rb`:
   ```ruby
