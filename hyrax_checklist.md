@@ -29,6 +29,11 @@ These are best practices for setting up a DCE developed and/or hosted instance o
   ```
 1. Set up honeybadger.io to track exceptions
 1. Set up gemnasium to track dependencies
+1. Turn on eager loading across Rails enviornments. By default Rails optimizes module loading differently in `development` and `test` than in `production`. We want to normalize this behavior to avoid surprises.
+  1. Add to `config/environments/development.rb` and `config/environments/test.rb`:
+   ```ruby
+   config.eager_load = true
+   ```
 1. Set the log level down to WARN especially in production. Hyrax is really really verbose and it makes debugging difficult. In `/config/environments/production.rb`:
   ```ruby
   config.log_level = :warn
