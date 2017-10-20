@@ -7,6 +7,7 @@ These are best practices for setting up a DCE developed and/or hosted instance o
 ## In the code base
 1. Add the random flag to rspec test suite
 1. Set up CI testing with travis
+1. Set up capistrano and ensure passenger restarts after deploy (see https://github.com/capistrano/passenger)
 1. Specify Ruby support
    1. In `Gemfile`:
    ```ruby
