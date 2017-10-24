@@ -40,6 +40,7 @@ These are best practices for setting up a DCE developed and/or hosted instance o
 
   ```
 1. Set up virus checking for self deposit applications (or at least ask the question)
+1. Truncate titles in notifications to 140 characters, or at least test notifications against very long titles. See Laevigata.
 
 ## On the servers
 1. Ensure the versions of ghost script, imagemagick, fits etc work together to produce non-garbled derivatives (more to come here)
