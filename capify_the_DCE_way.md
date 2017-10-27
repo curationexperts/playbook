@@ -10,12 +10,13 @@
   gem 'capistrano-rails'
   gem 'capistrano-sidekiq', '~> 0.20.0'
   ```
-  Add these to your top level Gemfile section:
+  Add these to your top level Gemfile section if they aren't there yet:
   ```ruby
   gem 'pg'
   gem 'sidekiq'
   ```
   Run `bundle install`
+
 1. Make some DCE specific stages, instead of just the defaults: `bundle exec cap install STAGES=localhost,sandbox,qa,staging,production`
 3. Edit the newly created `config/deploy/localhost.rb` so it contains:
   ```ruby
@@ -24,9 +25,9 @@
    server '127.0.0.1', user: 'deploy', roles: [:web, :app, :db]
   ```
 4. Edit the newly created `config/deploy.rb` file:
-  1. Add the `:application` name
-  2. Add the github `:repo_url`
-  3. Add this boilerplate, customizing as appropriate:
+  * Add the `:application` name
+  * Add the github `:repo_url`
+  * Add this boilerplate, customizing as appropriate:
   ```ruby
     set :deploy_to, '/opt/cypripedium'
 
