@@ -1,6 +1,17 @@
 ### Capify a Rails app the DCE Way
 
 1. Check out the project and ensure the tests pass
+1. Edit `config/solr.yml` to add the production solr url:
+  ```ruby
+    production:
+      url: http://127.0.0.1:8983/solr/mahonia
+  ```
+1. Edit `config/blacklight.yml` to add the production solr url:
+```ruby
+  production:
+    adapter: solr
+    url: http://127.0.0.1:8983/solr/mahonia
+```
 1. Add these gems to your `Gemfile`, in the `:development` section:
   ```ruby
   gem 'capistrano'
@@ -17,6 +28,7 @@
   ```
   Run `bundle install`
 
+  *Note*: If `pg` and `sidekiq` haven't been added to the project yet, chances are good they aren't really setup properly. Don't forget to go back and check that.
 1. Make some DCE specific stages, instead of just the defaults: `bundle exec cap install STAGES=localhost,sandbox,qa,staging,production`
 3. Edit the newly created `config/deploy/localhost.rb` so it contains:
   ```ruby
