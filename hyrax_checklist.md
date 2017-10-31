@@ -41,6 +41,7 @@ These are best practices for setting up a DCE developed and/or hosted instance o
   ```
 1. Set up virus checking for self deposit applications (or at least ask the question)
 1. Truncate titles in notifications to 140 characters, or at least test notifications against very long titles. See Laevigata.
+1. Add code version in page footer. See https://github.com/curationexperts/cypripedium/pull/44/commits/cdc444d66db78e0f3697aef0b1800ead5c2d6531
 
 ## On the servers
 1. Ensure the versions of ghost script, imagemagick, fits etc work together to produce non-garbled derivatives (more to come here)
