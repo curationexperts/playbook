@@ -28,7 +28,9 @@ These are best practices for setting up a DCE developed and/or hosted instance o
     mount Sidekiq::Web => '/sidekiq'
   end
   ```
-1. Set up honeybadger.io to track exceptions
+1. Set up honeybadger.io to track exceptions (only in production)
+1. Set up capistrano to deploy, and ensure it creates the default admin set upon deploy. 
+[Example](https://github.com/curationexperts/cypripedium/pull/29/commits/2a13f5c0383536a98502d1cc5371eb91dc6a3f23)
 1. Set up gemnasium to track dependencies
 1. Turn on eager loading across Rails enviornments. By default Rails optimizes module loading differently in `development` and `test` than in `production`. We want to normalize this behavior to avoid surprises.
   1. Add to `config/environments/development.rb` and `config/environments/test.rb`:
