@@ -17,9 +17,10 @@
     - Rubocop
     - Reek(?)
 
-## Project Practices
+## Every Project
 These are things that should be in place for every project
-1. [git sha footer](git_sha.md)
+1. [git sha footer](every_project/git_sha.md)
+2. [automated deployment](every_project/auto_deploy.md)
 
  - Project Ramp-Up
  - Source Control & Release Process
