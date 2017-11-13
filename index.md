@@ -4,7 +4,8 @@
 
 - Pair Programming
 - Test Driven Development
-- Continuous Integration
+- [Code Review](first_day/code_review.md)
+- [Continuous Integration](first_day/ci.md)
 - DevOps
 
 ## Tools
@@ -21,9 +22,6 @@ These are things that should be in place for every project
 1. [git sha footer](git_sha.md)
 
  - Project Ramp-Up
-
-   - Practices
-     - Code Review
  - Source Control & Release Process
  - Patterns & Anti-Patterns
  - Trusted Digital Repository Checklist(?)
