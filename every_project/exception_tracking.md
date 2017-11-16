@@ -11,16 +11,17 @@ To add a project to honeybadger:
 1. Get someone to add you to the honeybadger team. (See https://app.honeybadger.io/teams/34396)
 2. Add a project at https://app.honeybadger.io/projects. **If this is a hosted project create a separate project for the production instance**. Give the project a meaningful name. Say it's a Ruby project (assuming it is) and retain logs for 30 days.
 3. Follow the `Rails Installation` instructions that will come up. Run the test and ensure you can send a test exception.
-4. Do NOT check the `config/honeybadger.yml` file that was created into version control. Instead, add the API key that's specific to this project to the `/etc/environment` file on all servers where this project will be deployed. Eventually this should be managed by ansible, but for now you can do it by hand. Add this line to the end of `/etc/environment`, replacing the API key with the one for your project:
-
+4. Do NOT check the `config/honeybadger.yml` file that was created into version control. Instead, add the API key that's specific to this project to the `/etc/apache2/envvars` file on all servers where this project will be deployed. Eventually this should be managed by ansible, but for now you can do it by hand. Add this line to the end of `/etc/apache2/envvars`, replacing the API key with the one for your project:
   ```
-    HONEYBADGER_API_KEY=mst3k
+    export HONEYBADGER_API_KEY=mst3k
   ```
 5. To ensure you can send exceptions from a given server, log into the system as the deploy user and send a test exception:
-
   ```
     $ RAILS_ENV=production bundle exec honeybadger test
     Raising 'HoneybadgerTestingException' to simulate application failure.
     ⚡ Success: https://app.honeybadger.io/notice/2d77f413-f4de-4f8b-b3f2-258fc69c0e3f
   ```
-6. You'll need to restart apache for the environment variable to be available to the running service.
+6. You'll need to restart apache for the environment variable to be available to the running service. Note that a full stop and start is required to reload the environment variables:
+  ```
+    service apache2 stop && service apache2 start
+  ```
