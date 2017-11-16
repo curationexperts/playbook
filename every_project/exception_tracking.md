@@ -23,12 +23,4 @@ To add a project to honeybadger:
     Raising 'HoneybadgerTestingException' to simulate application failure.
     ⚡ Success: https://app.honeybadger.io/notice/2d77f413-f4de-4f8b-b3f2-258fc69c0e3f
   ```
-6. You'll need to restart apache for the environment variable to be available to the running service. If this is a production server, you can schedule the restart to happen later, using the `at` command. Make sure you include the full path to the `service` command:
-
-  ```bash
-    root@qa-etd:/opt/laevigata$ echo "/usr/sbin/service apache2 restart" | at 0500 nov 16
-    warning: commands will be executed using /bin/sh
-    job 3 at Thu Nov 16 10:15:00 2017
-    root@qa-etd:/opt/laevigata$ atq
-    3	Thu Nov 16 05:00:00 2017 a root
-  ```
+6. You'll need to restart apache for the environment variable to be available to the running service.
