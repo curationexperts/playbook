@@ -1,11 +1,14 @@
 # DCE Playbook, a.k.a. "The DCE Way"
 
 ## Practices
+These are the software development best practices to which we aspire at DCE. This list is a "first day" reading list --
+that is, when someone joins the DCE team, these are the practices we want them to get familiar with right away.
 
 - Pair Programming
 - Test Driven Development
 - [Code Review](first_day/code_review.md)
 - [Continuous Integration](first_day/ci.md)
+- [Environment Variables](first_day/environment_variables.md)
 - DevOps
 
 ## Tools
