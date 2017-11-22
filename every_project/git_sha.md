@@ -5,12 +5,14 @@ Doing this enables easier troubleshooting because it's clear precisely what vers
 
 For example, here's an example of this footer in a Hyrax 1 application:
 
+1. Set up `dotenv` and ensure you have an environment variable the references the name of your project.
 1. in `config/initializers/git_sha.rb`:
 
   ```ruby
+  revisions_logfile = "/opt/#{ENV['PROJECT_NAME']}/revisions.log"
   GIT_SHA =
-    if Rails.env.production? && File.exist?('/opt/laevigata/revisions.log')
-      `tail -1 /opt/laevigata/revisions.log`.chomp.split(" ")[3].gsub(/\)$/, '')
+    if Rails.env.production? && File.exist?(revisions_logfile)
+      `tail -1 #{revisions_logfile}`.chomp.split(" ")[3].gsub(/\)$/, '')
     elsif Rails.env.development? || Rails.env.test?
       `git rev-parse HEAD`.chomp
     else
@@ -18,8 +20,8 @@ For example, here's an example of this footer in a Hyrax 1 application:
     end
 
   BRANCH =
-    if Rails.env.production? && File.exist?('/opt/laevigata/revisions.log')
-      `tail -1 /opt/laevigata/revisions.log`.chomp.split(" ")[1]
+    if Rails.env.production? && File.exist?(revisions_logfile)
+      `tail -1 #{revisions_logfile}`.chomp.split(" ")[1]
     elsif Rails.env.development? || Rails.env.test?
       `git rev-parse --abbrev-ref HEAD`.chomp
     else
@@ -27,8 +29,8 @@ For example, here's an example of this footer in a Hyrax 1 application:
     end
 
   LAST_DEPLOYED =
-    if Rails.env.production? && File.exist?('/opt/laevigata/revisions.log')
-      deployed = `tail -1 /opt/laevigata/revisions.log`.chomp.split(" ")[7]
+    if Rails.env.production? && File.exist?(revisions_logfile)
+      deployed = `tail -1 #{revisions_logfile}`.chomp.split(" ")[7]
       Date.parse(deployed).strftime("%d %B %Y")
     else
       "Not in deployed environment"
