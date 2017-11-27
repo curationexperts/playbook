@@ -10,6 +10,7 @@ that is, when someone joins the DCE team, these are the practices we want them t
 - [Continuous Integration](first_day/ci.md)
 - [Environment Variables](first_day/environment_variables.md)
 - DevOps
+- [CSS & JavaScript Guidelines](practices/css_and_js_guidelines.md)
 
 ## Tools
 
