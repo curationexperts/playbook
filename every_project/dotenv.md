@@ -8,4 +8,4 @@ We use [dotenv](https://github.com/bkeepers/dotenv) to manage our environment va
 4. Create a file called `.env.production` to hold the settings for the production server(s)
 5. Add `.env.production` and `.env.production` to `.gitignore`
 6. Whenever you need to reference a value, add it to those files and reference it as an environment variable
-7. Edit your capistrano deploy to copy .env.production to the root of your project on the server. You'll need to copy `.env.production` to the appropriate directory on the server by hand for now.
+7. Add .env.production to your Capistrano deploy's set of linked files. You'll need to copy .env.production to your server's shared directory (where the linked files live) manually.
