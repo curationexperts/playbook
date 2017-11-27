@@ -15,6 +15,8 @@ that is, when someone joins the DCE team, these are the practices we want them t
 
 - Code Quality
   - Tools
+    - Travis CI
+      - [Intermittent Failures](tools/travis/intermittent_failures.md)
     - Gymnasium
     - Coveralls
     - Rubocop
