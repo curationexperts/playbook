@@ -25,6 +25,7 @@ These are things that should be in place for every project
 1. [git sha footer](every_project/git_sha.md)
 2. [automated deployment](every_project/auto_deploy.md)
 3. [exception tracking](every_project/exception_tracking.md)
+4. [use dotenv for environment variables](every_project/dotenv.md)
 
  - Project Ramp-Up
  - Source Control & Release Process
