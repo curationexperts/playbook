@@ -50,3 +50,12 @@ build-iPhoneSimulator/
 .rvmrc
 
 .sass-cache
+
+# Ignore _site/
+# When using GitHub pages, GitHub ignores the _site folder
+# it should only be used when developing locally with jekyll s
+# or when deploying to a non-GH host
+/_site
+# Ignore .jekyll-metadata
+#This file is generated for caching when using jekyll s --incremental 
+.jekyll-metadata
