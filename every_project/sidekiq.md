@@ -4,7 +4,7 @@ We use [Sidekiq](https://github.com/mperham/sidekiq) for running background jobs
 
 ### 1. Install Sidekiq
 1. Add `gem sidekiq` to your Gemfile and run `bundle install`
-2. Configure ActiveJob to use it as its queue_adapter by adding this to `config/application.rb`:
+2. Configure ActiveJob's queue_adapter to use it by adding this to `config/application.rb`:
 ```ruby
   config.active_job.queue_adapter = :sidekiq
 ```
