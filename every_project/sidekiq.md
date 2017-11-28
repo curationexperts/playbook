@@ -1,8 +1,8 @@
-# Use sidekiq for background jobs
+# Use Sidekiq for background jobs
 
-We use [sidekiq](https://github.com/mperham/sidekiq) for running background jobs.
+We use [Sidekiq](https://github.com/mperham/sidekiq) for running background jobs.
 
-### 1. Install sidekiq
+### 1. Install Sidekiq
 1. Add `gem sidekiq` to your Gemfile and run `bundle install`
 2. Configure ActiveJob to use it as its queue_adapter by adding this to `config/application.rb`:
 ```ruby
@@ -23,9 +23,11 @@ end
 1. Add `gem 'capistrano-sidekiq', '~> 0.20.0'` to your Gemfile in the development environment and run `bundle install`
 2. Add `require 'capistrano/sidekiq'` to your `Capfile`
 
-Now when you run cap deploy commands they should stop and restart Sidekiq.
+Now when you run cap deploy commands, they should stop and restart Sidekiq.
 
-### 3. To enable the admin panel, mount the Sidekiq web UI. This will give you a comfortable web interface for seeing and retrying failed jobs, relevant error messages, and more. Make sure only your admin users can view it.
+### 3. To enable the admin panel, mount the Sidekiq web UI.
+
+This will give you a comfortable web interface for seeing and retrying failed jobs, relevant error messages, and more. Make sure only your admin users can view it.
 Add to `config/routes.rb`:
 ```ruby
   # Mount sidekiq web ui and require authentication by an admin user
