@@ -7,6 +7,6 @@ We use [dotenv](https://github.com/bkeepers/dotenv) to manage our environment va
 3. Create a file called `.env.development` to hold your local development settings
 4. Create a file called `.env.test` for local and CI testing settings
 5. Create a file called `.env.production` to hold the settings for the production server(s)
-6. Add `.env.production` and `.env.production` to `.gitignore`
+6. Add `.env.development`, `.env.test` and `.env.production` to `.gitignore`
 7. Whenever you need to reference a value, add it to those files and reference it as an environment variable
 8. Add .env.production to your Capistrano deploy's linked files. You'll need to copy .env.production to your production Rails server's shared directory (where the linked files live) manually.
