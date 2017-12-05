@@ -4,7 +4,16 @@ We use [okcomputer](https://github.com/sportngin/okcomputer) to expose a health 
 
 ## installation
 
-Install okcomputer according to [the instructions in the README](https://github.com/sportngin/okcomputer).
+Install okcomputer according to [the instructions in the README](https://github.com/sportngin/okcomputer). Basically, you just add `gem okcomputer` to your gemfile and run `bundle install`. Then, configuration goes in `config/initializers/okcomputer.rb`
+
+## using built-in checks
+
+Okcomputer comes with many pre-configured checks you can load. See [the full list on github](https://github.com/sportngin/okcomputer/tree/master/lib/ok_computer/built_in_checks). Each includes relevant configuration options. For example, here's how to check whether the handle sidekiq queue is backing up, i.e., is there more than 360 seconds of latency between the time a job enters the queue and the time it leaves. In other words, signal a problem if the oldest job in the queue has been waiting longer than 6 minutes.
+
+```ruby
+  # config/initializers/okcomputer.rb
+  OkComputer::Registry.register "handle_sidekiq_queue_latency", OkComputer::SidekiqLatencyCheck.new('handle', 360)
+```
 
 ## writing checks
 
