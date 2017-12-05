@@ -36,3 +36,7 @@ These are things that should be in place for every project
  - Patterns & Anti-Patterns
  - Trusted Digital Repository Checklist(?)
  - Code Handoff
+
+## Production
+Care and feeding of the systems we run
+1. [monitoring](production/nagios.md)
