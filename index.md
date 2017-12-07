@@ -8,9 +8,10 @@ that is, when someone joins the DCE team, these are the practices we want them t
 - Test Driven Development
 - [Code Review](first_day/code_review.md)
 - [Continuous Integration](first_day/ci.md)
+- [CSS & JavaScript Guidelines](practices/css_and_js_guidelines.md)
 - [Environment Variables](first_day/environment_variables.md)
 - DevOps
-- [CSS & JavaScript Guidelines](practices/css_and_js_guidelines.md)
+- [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
 
 ## Tools
 
