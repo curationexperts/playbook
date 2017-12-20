@@ -43,9 +43,19 @@ Add to `config/routes.rb`:
     mount Sidekiq::Web => '/sidekiq'
   end
 ```
-### 5. If you had been using another background job processor, be sure to remove all of its components and configuration from your application files.
+
+### 5. Tune your database pool
+Ensure your database pool has enough connections to handle what sidekiq will throw at it. By default sidekiq starts 25 threads, although this is configurable. Update your `database.yml` file to match. See the [sidekiq Concurrency documentation](https://github.com/mperham/sidekiq/wiki/Advanced-Options#concurrency) for more details.
+```ruby
+production:
+  adapter: mysql2
+  database: foo_production
+  pool: 25
+```
+
+### 6. If you had been using another background job processor, be sure to remove all of its components and configuration from your application files.
 
 
-### 6. Further Reading
+### 7. Further Reading
 
   [Sidekiq Documentation](https://github.com/mperham/sidekiq/wiki/)
