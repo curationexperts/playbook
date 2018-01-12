@@ -32,6 +32,7 @@ These are things that should be in place for every project
 4. [use dotenv for environment variables](every_project/dotenv.md)
 5. [use sidekiq for background jobs](every_project/sidekiq.md)
 6. [use okcomputer to make it monitorable](every_project/okcomputer.md)
+7. [geonames web service](every_project/geonames.md)
 
  - Project Ramp-Up
  - Source Control & Release Process
