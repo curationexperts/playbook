@@ -4,14 +4,17 @@ Various processes that Hyrax runs (e.g., ffmpeg, imagemagick, browse_everything)
 Also, Blacklight saves user searches, and over time these will fill up the database. They also need to be deleted regularly.
 
 1. Install [whenever](https://github.com/javan/whenever) by adding this to your Gemfile and running bundle install:
+
 ```ruby
   gem 'whenever', require: false
 ```
 2. In the base of your project run:
+
   ```ruby
   wheneverize .
   ```
 3. Edit `config/schedule.rb` and add:
+
 ```ruby
   # Delete blacklight saved searches
   every :day, at: '11:55pm' do
@@ -25,6 +28,7 @@ Also, Blacklight saves user searches, and over time these will fill up the datab
 ```
 
 4. Add to `Capfile` file:
+
 ```ruby
   # use whenever to manage cron jobs
   set :whenever_command, "bundle exec whenever"
