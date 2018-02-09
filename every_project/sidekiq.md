@@ -53,8 +53,28 @@ production:
   pool: 25
 ```
 
-### 6. If you had been using another background job processor, be sure to remove all of its components and configuration from your application files.
+### 6. Configure your sidekiq queues
+Add a file like this at `config/sidekiq.yml`:
+```ruby
+---
+  :queues:
+    - [ingest, 4]
+    - [batch, 2]
+    - [default, 1]
 
+  test:
+    :concurrency: 5
+
+  development:
+    :concurrency: 5
+
+  production:
+    :concurrency: 5
+```
+These are the queues hyrax uses by default, and you can add new ones, or tune their weighting as required.
+
+### 6. If you had been using another background job processor, be sure to remove all of its components and configuration from your application files.
+Especially check whether there is a `queue_name_prefix` defined in your config files, which will override the queue names defined in `sidekiq.yml`.
 
 ### 7. Further Reading
 
