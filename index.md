@@ -4,10 +4,11 @@
 These are the software development best practices to which we aspire at DCE. This list is a "first day" reading list --
 that is, when someone joins the DCE team, these are the practices we want them to get familiar with right away.
 
-- [Code Review](first_day/code_review.md)
-- [Continuous Integration](first_day/ci.md)
+- [Code Review](practices/code_review.md)
+- [Continuous Integration](practices/ci.md)
 - [CSS & JavaScript Guidelines](practices/css_and_js_guidelines.md)
-- [Environment Variables](first_day/environment_variables.md)
+- [Environment Variables](practices/environment_variables.md)
+- [Estimation](practices/estimation.md)
 - [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
 
 ## Tools
