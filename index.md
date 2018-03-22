@@ -30,6 +30,7 @@ These are things that should be in place for every project
 ## Production
 Care and feeding of the systems we run
 1. [monitoring](production/nagios.md)
+2. [How to clean out Hyrax](practices/cleanout_hyrax.md)
 
 ## Authentication
 1. [Shibbboleth](authentication/shibboleth.md)
