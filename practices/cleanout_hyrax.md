@@ -47,10 +47,11 @@ RAILS_ENV=whatever bundle exec rake db:reset
 ```
 NOTE: You might need to reboot the server and then stop apache2 again if it won't drop the database because it says you have sessions connected. Suggestions welcome for a better way to handle that.
 
-### 5. Remove uploaded files
+### 5. Remove uploaded files and anything in /tmp/owned by deploy
 On the command line
 ```
 sudo rm -rf /opt/uploads/hyrax/uploaded_file/file/*
+sudo find /tmp -type f -user deploy -execdir /bin/rm -- {} \;
 ```
 
 ### 6. Restart
