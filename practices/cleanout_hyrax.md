@@ -45,7 +45,7 @@ On the command line
 ```
 RAILS_ENV=whatever bundle exec rake db:reset
 ```
-NOTE: You might need to reboot the server and then stop apache2 again if it won't drop the database because it says you have sessions connected. Suggestions welcome for a better way to handle that.
+NOTE: You might need to restart postgres if it won't drop the database because it says you have sessions connected. `sudo service postgresql stop` then `sudo service postgresql start`
 
 ### 5. Remove uploaded files and anything in /tmp/owned by deploy
 On the command line
