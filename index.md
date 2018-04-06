@@ -31,6 +31,7 @@ These are things that should be in place for every project
 Care and feeding of the systems we run
 1. [monitoring](production/nagios.md)
 2. [How to clean out Hyrax](practices/cleanout_hyrax.md)
+3. [Sidekiq in production](production/sidekiq_in_production.md)
 
 ## Authentication
 1. [Shibbboleth](authentication/shibboleth.md)
