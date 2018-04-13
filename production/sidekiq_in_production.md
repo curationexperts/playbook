@@ -134,4 +134,4 @@ namespace :sidekiq do
 end
 ```
 
-### 6. Test a cap deploy and ensure everyhing works
+### 6. Test a cap deploy and ensure everything works

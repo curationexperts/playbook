@@ -18,14 +18,16 @@ that is, when someone joins the DCE team, these are the practices we want them t
 
 ## Every Project
 These are things that should be in place for every project
+1. [project management with waffle](every_project/waffle.md)
 1. [git sha footer](every_project/git_sha.md)
-2. [automated deployment](every_project/auto_deploy.md)
-3. [exception tracking](every_project/exception_tracking.md)
-4. [use dotenv for environment variables](every_project/dotenv.md)
-5. [use sidekiq for background jobs](every_project/sidekiq.md)
-6. [clean up temp files](every_project/cleanup_temp_files.md)
-7. [use okcomputer to make it monitorable](every_project/okcomputer.md)
-8. [geonames web service](every_project/geonames.md)
+1. [automated deployment](every_project/auto_deploy.md)
+1. [exception tracking](every_project/exception_tracking.md)
+1. [use dotenv for environment variables](every_project/dotenv.md)
+1. [use sidekiq for background jobs](every_project/sidekiq.md)
+1. [sample data](every_project/sample_data.md)
+1. [clean up temp files](every_project/cleanup_temp_files.md)
+1. [use okcomputer to make it monitorable](every_project/okcomputer.md)
+1. [geonames web service](every_project/geonames.md)
 
 ## Production
 Care and feeding of the systems we run
