@@ -29,7 +29,7 @@ end
 2. Add `require 'capistrano/sidekiq'` to your `Capfile`
 
 ### 4. Ensure capistrano will restart sidekiq using the system service
-See also [Sidekiq in Production](production/sidekiq_in_production.md)
+See also [Sidekiq in Production](../production/sidekiq_in_production.md)
 This is documented more thoroughly in the `ansible-samvera` capification document, but the relevant bit here is you must re-define some methods from `capistrano-sidekiq`. Add this to your `deploy.rb` file:
 
 ```ruby
