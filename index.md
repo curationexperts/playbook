@@ -34,6 +34,8 @@ Care and feeding of the systems we run
 1. [monitoring](production/nagios.md)
 2. [How to clean out Hyrax](practices/cleanout_hyrax.md)
 3. [Sidekiq in production](production/sidekiq_in_production.md)
+4. [Defining a new service in nagios](production/define_new_service.md)
+5. [Restarting services automatically with nagios](production/restart_services.md)
 
 ## Authentication
 1. [Shibbboleth](authentication/shibboleth.md)
