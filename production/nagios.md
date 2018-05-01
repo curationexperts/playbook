@@ -1,6 +1,10 @@
 # Monitoring with Nagios
 We monitor the systems we run with nagios. It sends out alerts if a system is down, and measures uptime. For some clients, it sends our uptime reports. For some of our contracts we have committed to maintaining a certain level of uptime, so keeping accurate statistics is important.
 
+See also:
+* [Defining a new service](define_new_service.md)
+* [Restarting services automatically](restart_services.md)
+
 ## Connecting to the web UI
 * The main page is `http://nagios.curationexperts.com/nagios/`. You will need nagios credentials. If you need an account, ask Bess or Mark to create one for you.
 
