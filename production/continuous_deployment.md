@@ -49,7 +49,7 @@ set :ssh_options, keys: ["deploy_id_rsa"] if File.exist?("deploy_id_rsa")
 ```
 
 ## 9. Ensure capistrano can restart apache
-Ideally, we'd use capistrano-passenger to restart passenger after every deploy. Unfortunately, this doesn't work consistently. In order to ensure the deploy system is running the lastest code, add a block like this to `config/deploy.rb` and ensure the deploy user has sudo rights to restart apache2 (if you're using `ansible-samvera` build scripts, this should already be the case.)
+Ideally, we'd use capistrano-passenger to restart passenger after every deploy. Unfortunately, this doesn't work consistently. In order to ensure the deploy system is running the latest code, add a block like this to `config/deploy.rb` and ensure the deploy user has sudo rights to restart apache2 (if you're using `ansible-samvera` build scripts, this should already be the case.)
 
 ```ruby
   # Capistrano passenger restart isn't working consistently,
