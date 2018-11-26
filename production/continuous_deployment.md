@@ -26,7 +26,7 @@ travis to deploy.
 
 ## 6. Encrypt the deploy key you just created
 Use travis provided tools to encrypt the private key.
-1. Install travis tools locally: `sudo apt-get install travis`
+1. Install travis tools locally: `gem install travis`
 1. Run `travis login` and authenticate to github.
 1. `travis encrypt-file YOUR_PRIVATE_KEY --add --repo=curationexperts/laevigata`
 1. This will make changes to your `.travis.yml` file, including a command to de-crypt the file. Make sure these get saved and committed.
