@@ -43,3 +43,4 @@ Care and feeding of the systems we run
 
 ## Authentication
 1. [Shibbboleth](authentication/shibboleth.md)
+1. [LDAP](authentication/ldap.md)
