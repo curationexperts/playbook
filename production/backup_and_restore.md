@@ -1,6 +1,6 @@
-# Steps required to restore data from one hyrax system to another 
+# Steps required to restore data from one hyrax system to another
 
-This guide was written for moving data and state from one hyrax system to another. 
+This guide was written for moving data and state from one hyrax system to another.
 It was written for the Emory ETD application, but should apply to other systems with
 some changes to names etc.
 
@@ -13,47 +13,10 @@ You'll need to be able to login as ubuntu to the demo-etd server from the fedora
 and Hyrax servers. This may involve generating ssh keys and copying them to demo-etd
 from each of those servers.
 
-## 1a.  Restore fedora
-
-### On original fedora box:
-
-  * Stop fedora on the production server:
-  ```bash
-  sudo systemctl stop tomcat7
-  ```
-
-  * Copy fedora data to the new server:
-  ```bash
-  rsync -azhvP /opt/fedora-data ubuntu@demo-etd.curationexperts.com:/home/ubuntu
-  ```
-
-### On the new box:
-  * Stop tomcat on the new server:
-  ```bash
-  sudo systemctl stop tomcat7
-  ```
-
-  * Move the old fedora-data directory out of the way:
-  ```bash
-  cd /opt
-  sudo mv fedora-data fedora-data-old
-  ```
-
-  * Move the migrated data in:
-  ```bash
-  sudo mv /home/ubuntu/fedora-data /opt
-  ```
-  
-  * Re-start tomcat7:
-  ```bash
-  systemctl start tomcat7
-  ```
-
-  * Check that fedora comes back up and new objects seem to be in place
-  
-## 1b. Restore fedora if you are changing the storage options
-If you are going from a filestore to a database backed instance of Fedora, the
-above instructions will not work. Instead:
+## 1.  Restore fedora
+Note: We always want to back Fedora with postgres in our production setups. This
+method ensures that whatever system was used to back Fedora on the original box,
+it will go into a fedora backed by postgres.
 
 ### On original fedora box:
 
@@ -64,32 +27,13 @@ above instructions will not work. Instead:
 
 
 ### On the new box:
-* `curl -X POST -d "/opt/fedora_export" "localhost:8080/fedora/rest/fcr:restore"`
+* `curl -X POST -d "/opt/fedora_export/fedora_export" "localhost:8080/fedora/rest/fcr:restore"`
 
 ## 2. Backup and Restore Postgres
 ### On the old system:
 
-If you are prompted for the postgres password, but don't know it and you
-can't run `psql` without being prompted for a password, you'll need to
-edit the `/etc/postgresql/9.5/main/pg_hba.conf` file and replace:
-
-```
-# Database administrative login by Unix domain socket
-local   all             postgres                                md5
-```
-
-with:
-
-```
-# Database administrative login by Unix domain socket
-local   all             postgres                                trust
-```
-
-This will allow local users to login to postgres without a password. After
-you are done working with `psql` you should change this back to `md5`.
-
 * Ensure you can connect to postgres on the old box
-Look in `database.yml` for the production credentials.
+Look in `database.yml` for the production credentials. See the article [Connect to postgres if you don't know the password](reset_postgres.md) if you still can't connect.
 
 * Make a backup of the database with `pg_dump`:
 
@@ -105,7 +49,7 @@ scp prod_etd_pgdump.15May ubuntu@demo-etd.curationexperts.com:/home/ubuntu
 
 ### On the new system:
 
-* Ensure the database and a postgres role with the expected name and permissions exists. The dump refernces a `prod_etd` user so you will need to a user with that name.
+* Ensure the database and a postgres role with the expected name and permissions exists. The dump references a `prod_etd` user so you will need to a user with that name.
 
 ```
 ubuntu@demo-etd:~$ sudo -u postgres psql
@@ -143,7 +87,13 @@ $ sudo systemctl stop sidekiq
 ubuntu@demo-etd:~$ sudo -u postgres psql
 postgres=# DROP DATABASE laevigata;
 postgres=# ALTER DATABASE prod_etd_db RENAME TO laevigata;
+## These last two might be necessary to grant permissions
+## to the expected database role on the renamed database
+postgres=# ALTER DATABASE prod_etd_db OWNER TO whatever;
+postgres=# GRANT ALL PRIVILEGES ON DATABASE whatever to whatever;
+postgres=# alter user whatever with superuser;
 ```
+
 
 
 ## 3.  Backup and restore solr
