@@ -10,6 +10,33 @@ Here's how to set it up:
 ### 1. Create a Systems Manager AIM role
 Amazon maintains documentation for this process at https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-maintenance-perm-console.html
 
+Make sure that the trust relationship is set:
+
+Choose the Trust relationships tab, and then choose Edit trust relationship.
+
+Delete the current policy, and then copy and paste the following policy into the Policy Document field:
+
+```json
+{
+   "Version":"2012-10-17",
+   "Statement":[
+      {
+         "Sid":"",
+         "Effect":"Allow",
+         "Principal":{
+            "Service":[
+               "ssm.amazonaws.com",
+               "sns.amazonaws.com"
+            ]
+         },
+         "Action":"sts:AssumeRole"
+      }
+   ]
+}
+```
+
+Choose Update Trust Policy, and then copy or make a note of the role name and the Role ARN value on the Summary page. You will specify this information when you create your Maintenance Window.
+
 ### 2. Add that role to each instance you want a nightly backup for
 In the EC2 console, select the box and use the `Attach/Replace AIM Role` menu option.
 
