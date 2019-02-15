@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "0.3",
+  "description": "Creates AMI snapshot of a given instance id",
+  "parameters": {
+    "InstanceIamRole": {
+      "type": "String",
+      "description": "(Required) The name of the role that enables Systems Manager (SSM) to manage the instance.",
+      "default": "aws-system-manager"
+    },
+    "AutomationAssumeRole": {
+      "type": "String",
+      "description": "(Required) The ARN of the role that allows Automation to perform the actions on your behalf.",
+      "default": "arn:aws:iam::229792048549:role/aws-system-manager"
+    },
+    "InstanceId": {
+      "type": "String",
+      "description": "(Required) The EC2 instance ID."
+    },
+    "AmiName": {
+      "type": "String",
+      "description": "(Required) The name of the AMI that will be created"
+    },
+    "AmiDescription": {
+      "type": "String",
+      "description": "(Required) Description for the AMI that will be created"
+    }
+  },
+  "mainSteps": [
+    {
+      "name": "stopInstances",
+      "action": "aws:changeInstanceState",
+      "maxAttempts": 3,
+      "timeoutSeconds": 1200,
+      "onFailure": "Abort",
+      "inputs": {
+        "InstanceIds": [
+          "{{InstanceId}}"
+        ],
+        "DesiredState": "stopped"
+      }
+    },
+    {
+      "name": "createImage",
+      "action": "aws:createImage",
+      "maxAttempts": 3,
+      "onFailure": "Abort",
+      "inputs": {
+        "InstanceId": "{{InstanceId}}",
+        "ImageName": "{{AmiName}}_on_{{global:DATE_TIME}}",
+        "NoReboot": true,
+        "ImageDescription": "{{AmiDescription}} on {{global:DATE_TIME}} from {{InstanceId}}"
+      }
+    },
+    {
+      "name": "startInstances",
+      "action": "aws:changeInstanceState",
+      "maxAttempts": 3,
+      "timeoutSeconds": 1200,
+      "onFailure": "Abort",
+      "inputs": {
+        "InstanceIds": [
+          "{{InstanceId}}"
+        ],
+        "DesiredState": "running"
+      }
+    }
+  ],
+  "outputs": [
+    "createImage.ImageId"
+  ]
+}
