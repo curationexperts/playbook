@@ -10,6 +10,17 @@ Here's how to set it up:
 ### 1. Create a Systems Manager AIM role
 Amazon maintains documentation for this process at https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-maintenance-perm-console.html
 
+Create an EC2 role called `AWSSystemsManager`.
+
+This role needs to have enough permissions to create a maintenance window, to restart the box etc. These are the correct set of permissions:
+
+![Role Permissions](/assets/role-permissions.png)
+
+AmazonEC2FullAccess
+AmazonEC2RoleForSSM
+AmazonSSMFullAccess
+AmazonSSMMaintenanceWindowRole
+
 Make sure that the trust relationship is set:
 
 Choose the Trust relationships tab, and then choose Edit trust relationship.
@@ -18,20 +29,20 @@ Delete the current policy, and then copy and paste the following policy into the
 
 ```json
 {
-   "Version":"2012-10-17",
-   "Statement":[
-      {
-         "Sid":"",
-         "Effect":"Allow",
-         "Principal":{
-            "Service":[
-               "ssm.amazonaws.com",
-               "sns.amazonaws.com"
-            ]
-         },
-         "Action":"sts:AssumeRole"
-      }
-   ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+          "ec2.amazonaws.com",
+          "ssm.amazonaws.com",
+          "sns.amazonaws.com"
+        ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
 }
 ```
 
@@ -41,14 +52,27 @@ Choose Update Trust Policy, and then copy or make a note of the role name and th
 In the EC2 console, select the box and use the `Attach/Replace AIM Role` menu option.
 
 ### 3. Ensure AWS SSM
-This should be part of our standard build, but in case you don't have it installed,
-you can follow these directions:
+
+As of early 2019, AWS includes ssm by default in the Ubuntu 16.04 and 18.04 AMIs.
+
+You can verify that it is running with this command:
+
+`sudo systemctl status snap.amazon-ssm-agent.amazon-ssm-agent.service`
+
+After adding the role to the instance, restart the ssm agent:
+
+`sudo systemctl restart snap.amazon-ssm-agent.amazon-ssm-agent.service`
+
+If you aren't using a newer Ubuntu 16.04 or 18.04 image you can use an ansible role similar to this:
 https://github.com/curationexperts/emory-cm/blob/master/roles/aws_ssm/tasks/main.yml
+
 
 ### 4. Create (or check) Backup document
 In AWS, go to `Systems Manager` and select `Document` from the menu on the left.
 Check to see if you have the Document you need by searching for "Owned by me". If
 you don't have a document called `single_box_backup`, make one with [this content](/aws-systems-manager-backup.json).
+
+If you need to edit this, create a new verison and assign the new version as the default.
 
 ### 5. Create a Maintenance Window that uses that document
 1. Create a maintenance window with an appropriate name
