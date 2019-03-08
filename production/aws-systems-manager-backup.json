@@ -4,13 +4,11 @@
   "parameters": {
     "InstanceIamRole": {
       "type": "String",
-      "description": "(Required) The name of the role that enables Systems Manager (SSM) to manage the instance.",
-      "default": "aws-system-manager"
+      "description": "(Required) The name of the role that enables Systems Manager (SSM) to manage the instance."
     },
     "AutomationAssumeRole": {
       "type": "String",
-      "description": "(Required) The ARN of the role that allows Automation to perform the actions on your behalf.",
-      "default": "arn:aws:iam::229792048549:role/aws-system-manager"
+      "description": "(Required) The ARN of the role that allows Automation to perform the actions on your behalf."
     },
     "InstanceId": {
       "type": "String",
