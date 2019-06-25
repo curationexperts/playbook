@@ -10,6 +10,7 @@ that is, when someone joins the DCE team, these are the practices we want them t
 - [Environment Variables](practices/environment_variables.md)
 - [Estimation](practices/estimation.md)
 - [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
+- [Team Definition of Done](practices/done.md)
 
 ## Tools
 
