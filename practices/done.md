@@ -19,11 +19,11 @@ delivers (the negotiated) value.
 
 # Some readings on the topic
 
-## [Manifesto](https://manifesto.co.uk)'s [Definition of Ready](https://manifesto.co.uk/the-definition-of-ready/)
+## [Manifesto's Definition of Ready](https://manifesto.co.uk/the-definition-of-ready/)
 
 >The Definition of Ready is a Scrum team's shared understanding of what criteria a story needs to meet before it can be taken on.
 
-## [Manifesto](https://manifesto.co.uk)'s [Definition of Done](https://manifesto.co.uk/definition-done/)
+## [Manifesto's Definition of Done](https://manifesto.co.uk/definition-done/)
 
 >The Definition of Done is a Scrum team's shared understanding of which
 >criteria a story must satisfy to make it into a releasable increment of
@@ -62,4 +62,3 @@ delivers (the negotiated) value.
 >3.  There will always be more to do than time and money will
 >    allow.
 >
-
