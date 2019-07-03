@@ -1,9 +1,10 @@
 # DCE Playbook, a.k.a. "The DCE Way"
 
 ## Practices
-These are the software development best practices to which we aspire at DCE. This list is a "first day" reading list --
+These are the software development best practices and team norms to which we aspire at DCE. This list is a "first day" reading list --
 that is, when someone joins the DCE team, these are the practices we want them to get familiar with right away.
 
+- [Meeting Etiquette](practices/meeting_etiquette.md)
 - [Code Review](practices/code_review.md)
 - [Continuous Integration](practices/ci.md)
 - [CSS & JavaScript Guidelines](practices/css_and_js_guidelines.md)
