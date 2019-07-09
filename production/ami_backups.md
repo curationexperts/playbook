@@ -70,7 +70,7 @@ https://github.com/curationexperts/emory-cm/blob/master/roles/aws_ssm/tasks/main
 ### 4. Create (or check) Backup document
 In AWS, go to `Systems Manager` and select `Document` from the menu on the left.
 Check to see if you have the Document you need by searching for "Owned by me". If
-you don't have a document called `single_box_backup`, make one with [this content](/aws-systems-manager-backup.json).
+you don't have a document called `single_box_backup`, make an *automation* document with [this content](/aws-systems-manager-backup.json).
 
 If you need to edit this, create a new verison and assign the new version as the default.
 
