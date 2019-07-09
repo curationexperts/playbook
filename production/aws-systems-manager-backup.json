@@ -2,14 +2,6 @@
   "schemaVersion": "0.3",
   "description": "Creates AMI snapshot of a given instance id",
   "parameters": {
-    "InstanceIamRole": {
-      "type": "String",
-      "description": "(Required) The name of the role that enables Systems Manager (SSM) to manage the instance."
-    },
-    "AutomationAssumeRole": {
-      "type": "String",
-      "description": "(Required) The ARN of the role that allows Automation to perform the actions on your behalf."
-    },
     "InstanceId": {
       "type": "String",
       "description": "(Required) The EC2 instance ID."
