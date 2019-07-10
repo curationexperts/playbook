@@ -20,7 +20,7 @@ that is, when someone joins the DCE team, these are the practices we want them t
 
 ## Every Project
 These are things that should be in place for every project
-1. [project management with waffle](every_project/waffle.md)
+1. [project management](every_project/project_management.md)
 1. [git sha footer](every_project/git_sha.md)
 1. [automated deployment](every_project/auto_deploy.md)
 1. [exception tracking](every_project/exception_tracking.md)
