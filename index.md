@@ -42,6 +42,7 @@ Care and feeding of the systems we run
 8. [Restore Production Backup to Staging](production/restore_prod_to_stage.md)
 9. [Continuous Deploy with Travis](production/continuous_deployment.md)
 10. [Email on AWS](production/aws_email.md)
+11. [Exception Logging](production/exception_logging.md)
 
 ## Authentication
 1. [Shibbboleth](authentication/shibboleth.md)
