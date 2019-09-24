@@ -12,6 +12,7 @@ that is, when someone joins the DCE team, these are the practices we want them t
 - [Estimation](practices/estimation.md)
 - [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
 - [Team Definition of Done](practices/done.md)
+- [Standard Build](practices/standard_build.md)
 
 ## Tools
 
