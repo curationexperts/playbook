@@ -30,6 +30,7 @@ These are things that should be in place for every project
 1. [clean up temp files](every_project/cleanup_temp_files.md)
 1. [use okcomputer to make it monitorable](every_project/okcomputer.md)
 1. [geonames web service](every_project/geonames.md)
+1. [run FITS as a servlet](every_project/fits.md)
 
 ## Production
 Care and feeding of the systems we run
