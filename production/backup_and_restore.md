@@ -20,6 +20,7 @@ it will go into a fedora backed by postgres.
 
 ### On original fedora box:
 
+* Check to ensure you have LOTS of disk space. You will be roughly doubling the disk usage when you make a full backup. 
 * `mkdir /opt/fedora_export`
 * `chmod 777 /opt/fedora_export`
 * `curl -X POST -d "/opt/fedora_export" "http://localhost:8080/fedora/rest/fcr:backup"`
