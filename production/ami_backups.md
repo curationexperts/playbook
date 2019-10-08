@@ -14,7 +14,7 @@ Create an EC2 role called `AWSSystemsManager`.
 
 This role needs to have enough permissions to create a maintenance window, to restart the box etc. These are the correct set of permissions:
 
-![Role Permissions](/assets/role-permissions.png)
+![Role Permissions](https://raw.githubusercontent.com/curationexperts/playbook/master/assets/role-permissions.png)
 
 AmazonEC2FullAccess
 AmazonEC2RoleForSSM
