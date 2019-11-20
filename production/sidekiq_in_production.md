@@ -1,137 +1,114 @@
 # Sidekiq in Production
 
-Because sidekiq is running our background jobs, and some of these are time-
-sensitive, we need to ensure sidekiq is always running, and particularly that it gets started if the system reboots. There is a good blog post
-on this subject here: https://thomasroest.com/2017/03/04/properly-setting-up-redis-and-sidekiq-in-production-ubuntu-16-04.html.
+Because sidekiq is running our background jobs, and some of these are time-sensitive, we need to ensure sidekiq is
+always running, particularly after system reboots.
 
-In summary, sidkiq needs to be a systemctl controlled service, instead of 
-a process that gets started and stopped only via a rails deploy process. Here's 
-how we set that up. Most of this should be automated via ansible, but I'm documenting
-it here too for future reference, because there will also be times when we have 
-to do this by hand. This guide assumes Ubuntu 16.04.
+In order to start at boot time, Sidekiq needs to be managed as a system service, instead of a process that gets started
+and stopped only via a rails deploy process. Here's how we set that up. Most of this should be automated via ansible,
+but this guide captures the manual process that guides our ansible configuration and provides additional context and
+refernce. We typically run our projects on Ubuntu based servers that use Systemd as their init system and service
+manager and use Capistrano to manage our code deployments.This guide assumes Ubuntu 18.04.
 
-### 1. Create a sidekiq system service
 
-Create this file at `/lib/systemd/system/sidekiq.service`:
+### 1. Configure your application to use Sidekiq
+First, add Sidekiq to your application following the steps in 
+[Using Sidekiq for background jobs](/every_project/sidekiq.md). 
+Once you've completed those steps and can start up Sidekiq in your development
+environment, come back here and continue by configuring Capistrano (Step 2).
 
-```bash
-#
-# systemd unit file for CentOS 7, Ubuntu 15.04
-#
-# Customize this file based on your bundler location, app directory, etc.
-# Put this in /usr/lib/systemd/system (CentOS) or /lib/systemd/system (Ubuntu).
-# Run:
-#   - systemctl enable sidekiq
-#   - systemctl {start,stop,restart} sidekiq
-#
-# This file corresponds to a single Sidekiq process.  Add multiple copies
-# to run multiple processes (sidekiq-1, sidekiq-2, etc).
-#
-# See Inspeqtor's Systemd wiki page for more detail about Systemd:
-# https://github.com/mperham/inspeqtor/wiki/Systemd
-#
-[Unit]
-Description=sidekiq
-# start us only once the network and logging subsystems are available,
-# consider adding redis-server.service if Redis is local and systemd-managed.
-After=syslog.target network.target
+### 2. Configure Capistrano to be Sidekiq aware
+We use the [Capistrano::Sidekiq](https://github.com/seuros/capistrano-sidekiq) gem to easily integrate Sidekiq into our
+Capistrano-based deployment process. The instructions here outline the key steps we take (excerpted from
+the Capistrano::Sidekiq [wiki](https://github.com/seuros/capistrano-sidekiq/wiki#install-with-rails))
 
-# See these pages for lots of options:
-# http://0pointer.de/public/systemd-man/systemd.service.html
-# http://0pointer.de/public/systemd-man/systemd.exec.html
-[Service]
-Type=simple
-WorkingDirectory=/opt/{{ project_name }}/current
-# If you use rbenv:
-# ExecStart=/bin/bash -lc 'bundle exec sidekiq -e production'
-# If you use the system's ruby:
-ExecStart=/usr/local/bin/bundle exec sidekiq -e production -C config/sidekiq.yml -L log/sidekiq.log
-User=deploy
-Group=deploy
-UMask=0002
+Add `capistrano-sidekiq` to your Gemfile
 
-# if we crash, restart
-RestartSec=1
-Restart=on-failure
-
-# output goes to /var/log/syslog
-StandardOutput=syslog
-StandardError=syslog
-
-# This will default to "bundler" if we don't specify it
-SyslogIdentifier=sidekiq
-
-[Install]
-WantedBy=multi-user.target
+``` ruby
+gem 'capistrano-sidekiq' , group: :development
 ```
 
-### 2. Enable the system service
-```
-sudo /bin/systemctl enable sidekiq
-```
+Load the following in your Capfile
 
-### 3. Allow the deploy user to restart sidekiq without a password
-Create this file at `/etc/sudoers.d/sidekiq-restart-users`:
-
-```
-deploy ALL=(ALL) NOPASSWD: /bin/systemctl start sidekiq
-deploy ALL=(ALL) NOPASSWD: /bin/systemctl stop sidekiq
-deploy ALL=(ALL) NOPASSWD: /bin/systemctl restart sidekiq
-deploy ALL=(ALL) NOPASSWD: /bin/systemctl status sidekiq
+``` ruby
+require 'capistrano/sidekiq'
 ```
 
-### 4. Test that the deploy user can restart as expected
-```
-bess@qa-etd:/opt/laevigata$ sudo -u deploy bash
-deploy@qa-etd:/opt/laevigata$ sudo systemctl stop sidekiq
-deploy@qa-etd:/opt/laevigata$ sudo systemctl status sidekiq
-● sidekiq.service - sidekiq
-   Loaded: loaded (/lib/systemd/system/sidekiq.service; enabled; vendor preset: enabled)
-   Active: inactive (dead)
+### 3. Install sidekiq as a systemd service on your server(s)
+The Capistrano::Sidekiq gem provides a nice clean installer to set up Sidekiq as a Systemd managed service. The
+instructions here are the key steps excerpted from Capistrano::Sidekiq [Readme - Integration with
+Systemd](https://github.com/seuros/capistrano-sidekiq#integration-with-systemd)
 
-Apr 06 10:07:22 qa-etd.library.emory.edu systemd[1]: Stopped sidekiq.
-deploy@qa-etd:/opt/laevigata$ sudo systemctl start sidekiq
-deploy@qa-etd:/opt/laevigata$ sudo systemctl status sidekiq
-● sidekiq.service - sidekiq
-   Loaded: loaded (/lib/systemd/system/sidekiq.service; enabled; vendor preset: enabled)
-   Active: active (running) since Fri 2018-04-06 10:07:34 EDT; 1s ago
- Main PID: 4098 (bundle)
-    Tasks: 2
-   Memory: 37.8M
-      CPU: 1.531s
-   CGroup: /system.slice/sidekiq.service
-           └─4098 /opt/laevigata/shared/bundle/ruby/2.3.0/bin/sidekiq -e production -C config/sidekiq.yml -L log/sidekiq.log
-
-Apr 06 10:07:34 qa-etd.library.emory.edu systemd[1]: Started sidekiq.
-```
-
-### 5. Ensure capistrano will restart sidekiq using the system service
-This is documented more thoroughly in the `ansible-samvera` capification document, but the relevant bit here is you must re-define some methods from `capistrano-sidekiq`. Add this to your `deploy.rb` file:
-
+Start by adding Sidekiq specific settings to your `config/deploy.rb` file
 ```ruby
-# We have to re-define capistrano-sidekiq's tasks to work with
-# systemctl in production. Note that you must clear the previously-defined
-# tasks before re-defining them.
-Rake::Task["sidekiq:stop"].clear_actions
-Rake::Task["sidekiq:start"].clear_actions
-Rake::Task["sidekiq:restart"].clear_actions
-namespace :sidekiq do
-  task :stop do
-    on roles(:app) do
-      execute :sudo, :systemctl, :stop, :sidekiq
-    end
-  end
-  task :start do
-    on roles(:app) do
-      execute :sudo, :systemctl, :start, :sidekiq
-    end
-  end
-  task :restart do
-    on roles(:app) do
-      execute :sudo, :systemctl, :restart, :sidekiq
-    end
-  end
-end
+# Sidekiq service defaults
+set :init_system, :systemd 
+set :service_unit_name, "sidekiq.service"
+```
+> NOTE: if not all your servers are Systemd based, include this configuration in the stage files for the servers that do run Systemd instead.
+
+Now you need to enable Systemd to launch long-runnig services and run them as the `deploy` user at boot time. Connect to the target server
+using ssh as a priveleged user and run the follwing command:  
+```bash
+sudo loginctl enable-linger deploy
 ```
 
+Once you've set the service defaults, you can install and launch a Systemd service template by issuing the 
+following command (run the command for each of your defined stages and replace _$STAGE_NAME_ correspondingly):
+```bash
+bundle exec cap $STAGE_NAME sidekiq:install 
+```
+Now Capistrano can start and stop the Sidekiq service when running deployments at the `deploy` user.
+
+### 4. Test that the deploy user can restart Sidekiq as expected
+Confirm that the `deploy` user can manage the service on the server by opening a ssh session and issing the systemctl status command: 
+```bash
+$ ssh deploy@curate-cd.curationexperts.com
+deploy@curate-cd:~$ systemctl --user status sidekiq.service
+● sidekiq.service - sidekiq for dlp-curate (cd)
+   Loaded: loaded (/home/deploy/.config/systemd/user/sidekiq.service; enabled; vendor preset: enabled)
+   Active: active (running) since Tue 2019-11-19 18:34:14 EST; 5s ago
+  Process: 28729 ExecStop=/bin/kill -TERM $MAINPID (code=exited, status=0/SUCCESS)
+ Main PID: 28733 (bundler)
+   CGroup: /user.slice/user-1004.slice/user@1004.service/sidekiq.service
+           └─28733 /opt/dlp-curate/shared/bundle/ruby/2.5.0/bin/sidekiq -e production
+
+Nov 19 18:34:14 curate-cd systemd[4087]: Started sidekiq for dlp-curate (cd).
+deploy@curate-cd:~$ 
+```
+
+Then confirm that you can remotely stop and start Sidekiq using capistrano (the example here is run against the stage named "cd")
+```bash
+Marks-MacBook-Pro-2:dlp-curate mark$ bundle exec cap cd sidekiq:stop
+00:00 sidekiq:stop
+      01 systemctl --user stop sidekiq.service
+    ✔ 01 deploy@curate-cd.curationexperts.com 3.490s
+Marks-MacBook-Pro-2:dlp-curate mark$ bundle exec cap cd sidekiq:start
+00:00 sidekiq:start
+      01 systemctl --user start sidekiq.service
+    ✔ 01 deploy@curate-cd.curationexperts.com 1.227s
+```
+
+### 5. Tune your database pool
+Ensure your database pool has enough connections to handle what sidekiq will throw at it. By default sidekiq starts 25
+threads, although this is configurable. Update your `database.yml` file to match. See the [sidekiq Concurrency
+documentation](https://github.com/mperham/sidekiq/wiki/Advanced-Options#concurrency) for more details.
+```ruby
+production:
+  adapter: mysql2
+  database: foo_production
+  pool: 25
+```
 ### 6. Test a cap deploy and ensure everything works
+Once you've all your configuration files set, you can test your deployment. Just run the deploy command for each of your 
+defined stages, replacing _$STAGE_NAME_ in the command below accordingly:
+```bash
+bundle exec cap $STAGE_NAME deploy 
+```
+
+Congratulations! You should now be able to visit the `/sidekiq/busy` route on your server and see a page that 
+shows your running queues:
+
+![Sidekiq queue status page](/assets/sidekiq-queues.png)
+
+
+
