@@ -6,13 +6,13 @@ We use [FITS](https://projects.iq.harvard.edu/fits/home) for file characterizati
 
 1. Install FITS servlet on the system where you'll run Hyrax. We have an ansible script to do this, here: https://github.com/curationexperts/ansible-samvera/tree/master/roles/fits
 2. Ensure FITS is running and you can reach it from the system in question:
+
   ```bash
   ubuntu@cyp18:~$ curl http://localhost:8080/fits-1.2.0/ | grep FITS
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0<title>FITS Service</title>
       <h1>FITS Web Service</h1>
-
   ```
 
 ## 2. Configure Hyrax to use FITS servlet
