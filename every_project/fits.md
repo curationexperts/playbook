@@ -18,11 +18,13 @@ We use [FITS](https://projects.iq.harvard.edu/fits/home) for file characterizati
 ## 2. Configure Hyrax to use FITS servlet
 
 1. Add the servlet address to `.env.production`, possibly via an ansible build script. The line in `.env.production` should look like this (whatever URL you ensured was working in the above step):
-  ```
-  FITS_SERVLET_URL=http://localhost:8080/fits-1.2.0/
 
   ```
+  FITS_SERVLET_URL=http://localhost:8080/fits-1.2.0/
+  ```
+
 2. Ensure the `hydra-file_characterization` gem is version 1.1 or greater. Specify something like this in your `Gemfile`:
+
   ```
   gem 'hydra-file_characterization', '~> 1.1'
  ```
@@ -227,7 +229,6 @@ class Hyrax::CharacterizeJob < Hyrax::ApplicationJob
     end
   end
 end
-
   ```
 
 6. At this point, you should be able to add a work as usual to Hyrax and watch it use the new FITS servlet instead of spinning up a command line instance of FITS for each object.
