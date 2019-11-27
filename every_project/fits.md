@@ -5,7 +5,7 @@ We use [FITS](https://projects.iq.harvard.edu/fits/home) for file characterizati
 ## 1. Install FITS Servlet
 
 1. Install FITS servlet on the system where you'll run Hyrax. We have an ansible script to do this, here: https://github.com/curationexperts/ansible-samvera/tree/master/roles/fits
-2. Ensure FITS is running and you can reach it from the system in question:
+1. Ensure FITS is running and you can reach it from the system in question:
 
   ```bash
   ubuntu@cyp18:~$ curl http://localhost:8080/fits-1.2.0/ | grep FITS
@@ -23,13 +23,13 @@ We use [FITS](https://projects.iq.harvard.edu/fits/home) for file characterizati
   FITS_SERVLET_URL=http://localhost:8080/fits-1.2.0/
   ```
 
-2. Ensure the `hydra-file_characterization` gem is version 1.1 or greater. Specify something like this in your `Gemfile`:
+1. Ensure the `hydra-file_characterization` gem is version 1.1 or greater. Specify something like this in your `Gemfile`:
 
   ```
   gem 'hydra-file_characterization', '~> 1.1'
  ```
 
-3. Define a class to determine if a file is a valid image, and of course it should also have tests.
+1. Define a class to determine if a file is a valid image, and of course it should also have tests.
 
   ```ruby
   # frozen_string_literal: true
@@ -72,7 +72,7 @@ We use [FITS](https://projects.iq.harvard.edu/fits/home) for file characterizati
     end
   ```
 
-4. Make a characterization service in `config/initializers/characterization_service.rb`:
+1. Make a characterization service in `config/initializers/characterization_service.rb`:
 
   ```ruby
   # frozen_string_literal: true
@@ -194,7 +194,7 @@ We use [FITS](https://projects.iq.harvard.edu/fits/home) for file characterizati
   end
   ```
 
-5. Finally, override Hyrax's CharacterizeJob to use the new CharacterizationService in `app/jobs/hyrax/characterize_job.rb`:
+1. Finally, override Hyrax's CharacterizeJob to use the new CharacterizationService in `app/jobs/hyrax/characterize_job.rb`:
 
   ```ruby
   # frozen_string_literal: true
@@ -231,4 +231,4 @@ class Hyrax::CharacterizeJob < Hyrax::ApplicationJob
 end
   ```
 
-6. At this point, you should be able to add a work as usual to Hyrax and watch it use the new FITS servlet instead of spinning up a command line instance of FITS for each object.
+1. At this point, you should be able to add a work as usual to Hyrax and watch it use the new FITS servlet instead of spinning up a command line instance of FITS for each object.
