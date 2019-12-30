@@ -20,6 +20,7 @@ that is, when someone joins the DCE team, these are the practices we want them t
   - [Intermittent Failures](tools/travis/intermittent_failures.md)
 - Universal Viewer
   - [UV in Blacklight](tools/uv/uv_in_blacklight.md)
+- [Google Analytics](tools/google_analytics/google_analytics.md)
 
 ## Every Project
 These are things that should be in place for every project
