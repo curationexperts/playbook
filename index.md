@@ -15,7 +15,8 @@ that is, when someone joins the DCE team, these are the practices we want them t
 - [Standard Build](practices/standard_build.md)
 
 ## Tools
-
+- Containers
+  - [Docker](/tools/docker/containers.md)
 - Travis CI
   - [Intermittent Failures](tools/travis/intermittent_failures.md)
 - Universal Viewer
