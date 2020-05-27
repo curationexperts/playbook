@@ -29,6 +29,7 @@ These are things that should be in place for every project
 1. [git sha footer](every_project/git_sha.md)
 1. [automated deployment](every_project/auto_deploy.md)
 1. [exception tracking](every_project/exception_tracking.md)
+1. [automated tests (currently using CircleCI)](every_project/circleci.md)
 1. [use dotenv for environment variables](every_project/dotenv.md)
 1. [use sidekiq for background jobs](every_project/sidekiq.md)
 1. [sample data](every_project/sample_data.md)
