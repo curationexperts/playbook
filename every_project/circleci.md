@@ -86,9 +86,11 @@ jobs:
       - checkout
       - docker/check
       - docker/build:
-          image: YOUR-DOCKERHUB-ORGANIZATION/YOUR-DOCKERHUB-REPO:master
+          image: YOUR-DOCKERHUB-ORGANIZATION/YOUR-DOCKERHUB-REPO
+          tag: master
       - docker/push:
           image: YOUR-DOCKERHUB-ORGANIZATION/YOUR-DOCKERHUB-REPO:master
+          tag: master
 orbs:
   docker: circleci/docker@1.0.1
 version: 2.1
