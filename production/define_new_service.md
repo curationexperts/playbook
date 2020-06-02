@@ -59,6 +59,8 @@ is `check_nrpe`, with the local command passed as an argument, in this case `che
 
 ### 2. Restart nagios
 ```
+sudo systemctl stop nagios
+pkill nagios
 sudo systemctl restart nagios
 ```
 Make sure it came back up correctly. Nagios won't restart if there are syntax errors
