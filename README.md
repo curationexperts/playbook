@@ -1,7 +1,9 @@
 # DCE Playbook for Design and Development
 [![Build Status](https://travis-ci.org/curationexperts/playbook.svg?branch=master)](https://travis-ci.org/curationexperts/playbook)
 
-This is a place for documenting the practices we follow at DCE.
+This is a place for documenting the team practices we follow at DCE.
+
+For more detailed techincal recipes, please see our [Recipe](/recipes) book
 
 ## About this project
 
