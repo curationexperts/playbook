@@ -6,7 +6,7 @@ that is, when someone joins the DCE team, these are the practices we want them t
 
 - [Meeting Etiquette](practices/meeting_etiquette.md)
 - [Code Review](practices/code_review.md)
-- [project management](every_project/project_management.md)
+- [project management](practices/project_management.md)
 - [Environment Variables](practices/environment_variables.md)
 - [Estimation](practices/estimation.md)
 - [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
